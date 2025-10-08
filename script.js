@@ -1,8 +1,4 @@
-// =========================
-// JSON API Explorer Script
-// =========================
 
-// ---- Select elements ----
 const fetchButton = document.getElementById("fetchButton");
 const postList = document.getElementById("postList");
 const errorDiv = document.getElementById("error");
@@ -13,7 +9,6 @@ const bodyInput = document.getElementById("bodyInput");
 const formError = document.getElementById("formError");
 const formSuccess = document.getElementById("formSuccess");
 
-// ---- Fetch & Display Posts ----
 fetchButton.addEventListener("click", async () => {
   postList.innerHTML = "";
   errorDiv.textContent = "Loading...";
@@ -23,7 +18,6 @@ fetchButton.addEventListener("click", async () => {
     const posts = await response.json();
     errorDiv.textContent = "";
 
-    // Limit to first 5 posts for clarity
     posts.slice(0, 5).forEach(post => {
       const title = document.createElement("h3");
       title.textContent = post.title;
@@ -35,11 +29,10 @@ fetchButton.addEventListener("click", async () => {
       postList.appendChild(body);
     });
   } catch (error) {
-    errorDiv.textContent = "❌ Error fetching posts: " + error.message;
+    errorDiv.textContent = "Error fetching posts: " + error.message;
   }
 });
 
-// ---- Create & Send a New Post ----
 postForm.addEventListener("submit", async event => {
   event.preventDefault();
   formError.textContent = "";
@@ -65,11 +58,11 @@ postForm.addEventListener("submit", async event => {
     });
 
     const data = await response.json();
-    formSuccess.textContent = `✅ Post created! ID: ${data.id}`;
+    formSuccess.textContent = `Post created! ID: ${data.id}`;
     titleInput.value = "";
     bodyInput.value = "";
   } catch (error) {
-    formError.textContent = "❌ Error submitting post: " + error.message;
+    formError.textContent = "Error submitting post: " + error.message;
     formSuccess.textContent = "";
   }
 });
